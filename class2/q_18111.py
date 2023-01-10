@@ -5,9 +5,13 @@ N, M, B = map(int, sys.stdin.readline().split())
 lst = []
 for i in range(N):
     a = list(map(int, sys.stdin.readline().split()))
-    lst.append(a)
+    lst = lst + a
 
-for i in range(N):
-    print(lst[i])
+mx = max(lst)
+mn = min(lst)
 
-print(max(lst))
+for i in range(mn, mx+1):
+    block = B
+    for j in range(len(lst)):
+
+
