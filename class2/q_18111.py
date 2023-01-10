@@ -20,14 +20,14 @@ for i in range(mn, mx+1):
         if lst2[j] > i:
             get = lst2[j] - i
             lst2[j] = i
-            time += 2
+            time += 2*get
             block += get
     for k in range(len(lst2)):
         if lst2[k] < i:
             use = i - lst2[k]
             lst2[k] = i
             block -= use
-            time += 1
+            time += 1*use
         if block < 0:
             flag = 1
             break
