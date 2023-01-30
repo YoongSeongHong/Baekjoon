@@ -1,4 +1,4 @@
-# 10026번 적록색약
+# 10026번 적록 색약
 import sys
 import copy
 from collections import deque
