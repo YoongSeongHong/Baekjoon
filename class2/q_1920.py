@@ -1,4 +1,6 @@
 import sys
+
+
 def search(num):
     left = 0
     right = arr_len - 1
