@@ -1,3 +1,4 @@
+# 10816번 숫자 카드 2 해시 이용
 import sys
 
 N = int(sys.stdin.readline())
