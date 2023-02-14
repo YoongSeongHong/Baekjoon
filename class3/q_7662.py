@@ -1,96 +1,37 @@
-# # 7662번 이중 우선순위 큐
-# import sys
-# import heapq
-#
-# T = int(sys.stdin.readline())
-#
-# for i in range(T):
-#     heap_max = []
-#     heap_min = []
-#     k = int(sys.stdin.readline())
-#     visited = [False] * k
-#     for j in range(k):
-#         order, num = map(str, sys.stdin.readline().split())
-#         if order == 'I':
-#             heapq.heappush(heap_max, (-int(num), j))
-#             heapq.heappush(heap_min, (int(num), j))
-#             visited[j] = True
-#         else:
-#             if num == '1':
-#                 while heap_max and visited[heap_max[0][1]] == False:
-#                     heapq.heappop(heap_max)
-#                 if heap_max:
-#                     visited[heap_max[0][1]] = False
-#                     heapq.heappop(heap_max)
-#             else:
-#                 while heap_min and visited[heap_min[0][1]] == False:
-#                     heapq.heappop(heap_min)
-#                 if heap_min:
-#                     visited[heap_max[0][1]] = False
-#                     heapq.heappop(heap_min)
-#
-#     if True not in visited:
-#         print("EMPTY")
-#     else:
-#         # 정수가 있다면
-#         # 연산이 끝난 후 제거 되지 못한 최대 힙과 최소 힙을 팝하여 제거
-#         while heap_max and visited[heap_max[0][1]] == False:
-#             heapq.heappop(heap_max)
-#         while heap_min and visited[heap_min[0][1]] == False:
-#             heapq.heappop(heap_min)
-#
-#         print(-heap_max[0][0], heap_min[0][0])
-#
-#
-
+# 7662번 이중 우선순위 큐
 import sys
 import heapq
 
-t = int(sys.stdin.readline())
+T = int(sys.stdin.readline())
 
-# 테스트 케이스만큼 반복한다.
-for _ in range(t):
+for i in range(T):
+    heap_max = []  # 최댓값을 반환할 때 이용
+    heap_min = []  # 최솟값을 반환할 때 이용
     k = int(sys.stdin.readline())
-    heap_max = []
-    heap_min = []
-    visited = [False] * k # 정수 여부
-
-    # 반복문을 통행 연산을 수행한다.
-    for i in range(k):
-        a, b = map(str, sys.stdin.readline().split())
-
-        # 삽입 연산
-        if a == "I":
-            heapq.heappush(heap_max, (-int(b), i)) # 최대 힙
-            heapq.heappush(heap_min, (int(b), i)) # 최소 힙
-            visited[i] = True # 정수 생성
-
-        # 제거 연산
+    visited = [False] * k  # 남아있는 값이면 True로 저장. max나 min중 하나에서라도 pop되면 False 저장
+    for j in range(k):
+        order, num = map(str, sys.stdin.readline().split())
+        if order == 'I':  #
+            heapq.heappush(heap_max, (-int(num), j))  # 최대 힙에 저장
+            heapq.heappush(heap_min, (int(num), j))  # 최소 힙에 저장
+            visited[j] = True
         else:
-            # 최대 힙 제거
-            if b == "1":
-                # 반복문을 통해 이미 제거 된 정수는 팝하여 제거
+            if num == '1':
+                # 최대 힙에 값이 존재하고 최소 힙과 공유하는 visited의 인덱스 값이 False면 최소 힙에서 pop했다는 의미
                 while heap_max and visited[heap_max[0][1]] == False:
-                    heapq.heappop(heap_max)
-
-                # 최대 힙이 있으면 최대 힙 제거
-                if heap_max:
-                    visited[heap_max[0][1]] = False
-                    heapq.heappop(heap_max)
-
-            # 최소 힙 제거
+                    heapq.heappop(heap_max)  # 최대 힙에서도 그 값 빼준다.
+                if heap_max:  # 최대 힙에 값 존재할 때
+                    visited[heap_max[0][1]] = False  # 최소 힙과 공유하는 visited의 인덱스 False로 바꿔줌
+                    heapq.heappop(heap_max)  # 최대 힙에서 값 뺌
             else:
-                # 반복문을 통해 이미 제거된 정수는 팝하여 제거
+                # 최소 힙에 값이 존재하고 최대 힙과 공유하는 visited의 인덱스 값이 False면 최대 힙에서 pop했다는 의미
                 while heap_min and visited[heap_min[0][1]] == False:
-                    heapq.heappop(heap_min)
+                    heapq.heappop(heap_min)  # 최소 힙에서도 그 값 빼준다.
+                if heap_min:  # 최소 힙에 값 존재할 때
+                    visited[heap_min[0][1]] = False  # 최대 힙과 공유하는 visited의 인덱스 False로 바꿔줌
+                    heapq.heappop(heap_min)  # 최소 힙에서 값 뺌
 
-                # 최소 힙이 있으면 최소 힙 제거
-                if heap_min:
-                    visited[heap_min[0][1]] = False
-                    heapq.heappop(heap_min)
-
-    # 정수가 없다면 "EMPTY" 출력
-    if True not in visited:
+    if True not in visited:  # visited에 True가 없다는 건 힙에 값이 없다는 것
         print("EMPTY")
     else:
         # 정수가 있다면
@@ -100,5 +41,6 @@ for _ in range(t):
         while heap_min and visited[heap_min[0][1]] == False:
             heapq.heappop(heap_min)
 
-        # 최대 힙, 최소 힙 출력
         print(-heap_max[0][0], heap_min[0][0])
+
+
