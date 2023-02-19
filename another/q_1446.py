@@ -40,5 +40,4 @@ for i in range(n):
     graph[a].append((b, c))
 
 dijkstra(0)
-print(graph)
-print(distance)
+print(distance[d])
